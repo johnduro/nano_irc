@@ -16,6 +16,7 @@
 #include <sys/socket.h>
 #include <netdb.h>
 #include <unistd.h>
+#include <stdio.h>
 #include "irc.h"
 #include "libft.h"
 
@@ -267,7 +268,11 @@ void	add_to_write(t_user *user, char *msg)
 	len_msg = ft_strlen(msg);
 	len_wr = ft_strlen(user->buf_write);
 	if ((BUF_SIZE - (len_msg + len_wr)) >= 0)
+	{
 		ft_strcat(user->buf_write, msg);
+		if (msg[len_msg - 1] != '\n')
+			ft_strcat(user->buf_write, "\n");
+	}
 }
 
 void	send_to_chan(t_chan *chan, char *msg)
@@ -314,7 +319,7 @@ int		set_nick(char **arg, t_user *user, t_irc *irc)
 		add_to_write(user, N_ERROR);
 		return (0);
 	}
-	trim = ft_strtrim(*arg);
+	trim = ft_strtrim(*arg); //plus besoin ?
 	if (ft_strlen(trim) > NICK_LEN)
 		add_to_write(user, N_LEN);
 	else if (nick_is_valid(trim, irc))
@@ -446,6 +451,11 @@ int		send_msg(char **arg, t_user *user, t_irc *irc)
 	char	*msg;
 
 	arg++;
+	if ((ft_strlen(user->nick)) <= 0)
+	{
+		add_to_write(user, N_ERROR);
+		return (0);
+	}
 	if (!(*arg))
 	{
 		add_to_write(user, NO_MSG);
@@ -545,10 +555,13 @@ t_cmd	*get_list(void)
 void	parse_command(t_user *user, t_irc *irc)
 {
 	char	**cmd;
+	char	*trim;
 	t_cmd	*list;
 	int		i;
 
-	cmd = ft_strsplit(user->buf_read, ' ');
+	trim = ft_strtrim(user->buf_read);
+	cmd = ft_strsplit(trim, ' ');
+	free(trim);
 	list = get_list();
 	i = 0;
 	while (list[i].name)
@@ -558,6 +571,7 @@ void	parse_command(t_user *user, t_irc *irc)
 			list[i].fn(cmd, user, irc);
 			break ;
 		}
+		i++;
 	}
 	ft_tabfree(&cmd);
 }
@@ -595,6 +609,7 @@ void	read_client(t_user *user, t_irc *irc)
 	if ((ret = recv(user->fd, user->buf_read, BUF_SIZE, MSG_PEEK)) > 0)
 	{
 		user->buf_read[ret] = '\0';
+		printf("RECU: %s<\n", user->buf_read); //a enlever
 		read = find_read(user->buf_read);
 		if (read > -1)
 		{
@@ -605,6 +620,7 @@ void	read_client(t_user *user, t_irc *irc)
 				return ;
 			}
 			user->buf_read[ret] = '\0';
+			printf("TRAITE: %s<\n", user->buf_read); //a enlever
 			treat_command(user, irc);
 		}
 	}
