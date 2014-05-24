@@ -1,12 +1,23 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   chan_serveur.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:07:02 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:20:02 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include "irc.h"
 #include "libft.h"
 
-t_chan	*chan_gen(char *name, t_irc *irc)
+t_chan		*chan_gen(char *name, t_irc *irc)
 {
-	t_chan	*bwschan;
-	t_chan	*new;
+	t_chan		*bwschan;
+	t_chan		*new;
 
 	if ((new = (t_chan *)malloc(sizeof(*new))) == NULL)
 		error_serv(-3);
@@ -30,7 +41,7 @@ t_chan	*chan_gen(char *name, t_irc *irc)
 	return (new);
 }
 
-t_chan	*find_chan(char *name, t_chan *chan)
+t_chan		*find_chan(char *name, t_chan *chan)
 {
 	while (chan)
 	{
@@ -41,7 +52,7 @@ t_chan	*find_chan(char *name, t_chan *chan)
 	return (NULL);
 }
 
-void	add_user_chan(t_user *user, t_chan *chan)
+void		add_user_chan(t_user *user, t_chan *chan)
 {
 	if (chan->user_last == NULL)
 	{
@@ -58,9 +69,9 @@ void	add_user_chan(t_user *user, t_chan *chan)
 	user->chan = chan;
 }
 
-int	join_chan(char **arg, t_user *user, t_irc *irc)
+int			join_chan(char **arg, t_user *user, t_irc *irc)
 {
-	t_chan	*chan;
+	t_chan		*chan;
 
 	arg++;
 	if (!(*arg))
@@ -78,7 +89,7 @@ int	join_chan(char **arg, t_user *user, t_irc *irc)
 	return (0);
 }
 
-int	leave_chan(char **arg, t_user *user, t_irc *irc)
+int			leave_chan(char **arg, t_user *user, t_irc *irc)
 {
 	(void)arg;
 	if (user->chan)

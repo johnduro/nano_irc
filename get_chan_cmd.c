@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_chan_cmd.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:21:22 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:22:01 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include "irc.h"
 #include "libft.h"
 
-int	get_cmd(char **arg, t_user *user, t_irc *irc)
+int			get_cmd(char **arg, t_user *user, t_irc *irc)
 {
 	char	*tmp;
 
@@ -15,7 +26,7 @@ int	get_cmd(char **arg, t_user *user, t_irc *irc)
 	return (0);
 }
 
-void	send_chan(t_user *user, t_chan *chan)
+void		send_chan(t_user *user, t_chan *chan)
 {
 	t_chan	*bwschan;
 	char	*tmp;
@@ -40,7 +51,7 @@ void	send_chan(t_user *user, t_chan *chan)
 	free(ret);
 }
 
-int	get_chan(char **arg, t_user *user, t_irc *irc)
+int			get_chan(char **arg, t_user *user, t_irc *irc)
 {
 	(void)arg;
 	send_chan(user, irc->chan);

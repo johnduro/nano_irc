@@ -1,3 +1,14 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_serveur.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:20:11 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:21:14 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include <sys/types.h>
@@ -8,7 +19,7 @@
 #include "libft.h"
 #include "irc.h"
 
-int	error_serv(int code)
+int			error_serv(int code)
 {
 	if (code == -1)
 		ft_putendl_fd("Usage: ./serveur <port>", 2);
@@ -21,11 +32,11 @@ int	error_serv(int code)
 	exit(code);
 }
 
-int	create_serv(int port)
+int			create_serv(int port)
 {
-	int	sock;
-	struct sockaddr_in	sin;
-	struct protoent	*pe;
+	int						sock;
+	struct sockaddr_in		sin;
+	struct protoent			*pe;
 
 	pe = getprotobyname("tcp");
 	sock = socket(PF_INET, SOCK_STREAM, pe->p_proto);
@@ -38,10 +49,10 @@ int	create_serv(int port)
 	return (sock);
 }
 
-t_irc	*init_irc(int port)
+t_irc		*init_irc(int port)
 {
 	struct rlimit	rlp;
-	t_irc	*new;
+	t_irc			*new;
 
 	if ((new = (t_irc *)malloc(sizeof(*new))) == NULL)
 		error_serv(-3);
@@ -54,10 +65,10 @@ t_irc	*init_irc(int port)
 	return (new);
 }
 
-int	main(int argc, char **argv)
+int			main(int argc, char **argv)
 {
-	t_irc	*irc;
-	int	port;
+	t_irc		*irc;
+	int			port;
 
 	if (argc != 2)
 		error_serv(-1);

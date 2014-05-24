@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 14:06:58 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/22 20:54:09 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/24 17:32:22 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,10 @@ typedef struct s_chan	t_chan;
 typedef struct			s_user
 {
 	int					fd;
-//	char				login[LOG_LEN + 1];
 	char				nick[NICK_LEN + 1];
 	char				buf_read[BUF_SIZE + 1];
 	char				buf_write[BUF_SIZE + 1];
 	t_chan				*chan;
-//	char				chan;
-//	char				chan[CHAN_LEN + 1];
 	struct s_user		*next;
 	struct s_user		*prev;
 	struct s_user		*next_chan;
@@ -113,5 +110,6 @@ int						get_cmd(char **arg, t_user *user, t_irc *irc);
 int						get_chan(char **arg, t_user *user, t_irc *irc);
 int						quit_serv(char **arg, t_user *user, t_irc *irc);
 void					send_chan(t_user *user, t_chan *chan);
+int						check_nick(t_user *user);
 
 #endif

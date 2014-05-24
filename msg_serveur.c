@@ -1,9 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   msg_serveur.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:23:40 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:39:40 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include "irc.h"
 #include "libft.h"
 
-t_user	*find_user(char *name, t_user *user)
+t_user			*find_user(char *name, t_user *user)
 {
 	while (user)
 	{
@@ -12,21 +23,25 @@ t_user	*find_user(char *name, t_user *user)
 		user = user->next;
 	}
 	return (NULL);
-
 }
 
-int	send_msg(char **arg, t_user *user, t_irc *irc)
+static void		go_msg(t_user *user, t_user *recip, char *msg)
+{
+	char	*final;
+
+	final = make_msg(user, msg, PRIVATE);
+	add_to_write(recip, final);
+	free(final);
+}
+
+int				send_msg(char **arg, t_user *user, t_irc *irc)
 {
 	char	*trim;
 	t_user	*recip;
-	char	*msg;
 
 	arg++;
-	if ((ft_strlen(user->nick)) <= 0)
-	{
-		add_to_write(user, N_ERROR);
+	if (check_nick(user))
 		return (0);
-	}
 	if (!(*arg))
 	{
 		add_to_write(user, NO_MSG);
@@ -41,11 +56,7 @@ int	send_msg(char **arg, t_user *user, t_irc *irc)
 		if (!(*arg))
 			add_to_write(user, NO_MSG);
 		else
-		{
-			msg = make_msg(user, *arg, PRIVATE);
-			add_to_write(recip, msg);
-			free(msg);
-		}
+			go_msg(user, recip, *arg);
 	}
 	free(trim);
 	return (0);

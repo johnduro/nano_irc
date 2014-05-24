@@ -1,9 +1,30 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   nick_serveur.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:24:05 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:31:59 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <stdlib.h>
 #include "irc.h"
 #include "libft.h"
 
-int	nick_is_valid(char *nick, t_irc *irc)
+int			check_nick(t_user *user)
+{
+	if ((ft_strlen(user->nick)) <= 0)
+	{
+		add_to_write(user, N_ERROR);
+		return (-1);
+	}
+	return (0);
+}
+
+int			nick_is_valid(char *nick, t_irc *irc)
 {
 	char	*hold;
 	t_user	*bwsus;
@@ -25,7 +46,7 @@ int	nick_is_valid(char *nick, t_irc *irc)
 	return (1);
 }
 
-int	set_nick(char **arg, t_user *user, t_irc *irc)
+int			set_nick(char **arg, t_user *user, t_irc *irc)
 {
 	char	*trim;
 

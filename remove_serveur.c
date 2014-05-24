@@ -1,11 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   remove_serveur.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:25:22 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:26:23 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include <unistd.h>
 #include <stdlib.h>
-#include <stdio.h> //nonon
 #include "irc.h"
 #include "libft.h"
 
-void	remove_chan(t_chan *chan, t_irc *irc)
+void		remove_chan(t_chan *chan, t_irc *irc)
 {
 	if (chan->prev == NULL && chan->next == NULL)
 		irc->chan = NULL;
@@ -24,7 +34,7 @@ void	remove_chan(t_chan *chan, t_irc *irc)
 	free(chan);
 }
 
-void	remove_user_chan(t_user *user, t_irc *irc)
+void		remove_user_chan(t_user *user, t_irc *irc)
 {
 	t_chan	*chan;
 
@@ -49,7 +59,7 @@ void	remove_user_chan(t_user *user, t_irc *irc)
 	user->chan = NULL;
 }
 
-void	remove_user(t_user *user, t_irc *irc)
+void		remove_user(t_user *user, t_irc *irc)
 {
 	if (user->chan)
 		remove_user_chan(user, irc);
@@ -73,14 +83,12 @@ void	remove_user(t_user *user, t_irc *irc)
 		user->prev->next = user->next;
 		user->next->prev = user->prev;
 	}
-	printf("ici 1\n"); //nonon
 	close(user->fd);
-	printf("ici 2\n"); //nonon
 	free(user); //mettre a NULL apres ?
-	printf("ici 3\n"); //nonon
+	user = NULL; //test
 }
 
-int	quit_serv(char **arg, t_user *user, t_irc *irc)
+int			quit_serv(char **arg, t_user *user, t_irc *irc)
 {
 	(void)arg;
 	ft_putstr("User #");

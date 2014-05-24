@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   write_serveur.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2014/05/24 17:15:43 by mle-roy           #+#    #+#             */
+/*   Updated: 2014/05/24 17:22:54 by mle-roy          ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
 #include "irc.h"
 #include "libft.h"
 
-char	*make_msg(t_user *user, char *msg, int flag)
+char		*make_msg(t_user *user, char *msg, int flag)
 {
 	char	*tmp;
 
@@ -16,10 +27,10 @@ char	*make_msg(t_user *user, char *msg, int flag)
 	return (tmp);
 }
 
-void	add_to_write(t_user *user, char *msg)
+void		add_to_write(t_user *user, char *msg)
 {
-	int	len_msg;
-	int	len_wr;
+	int		len_msg;
+	int		len_wr;
 
 	len_msg = ft_strlen(msg);
 	len_wr = ft_strlen(user->buf_write);
@@ -31,14 +42,14 @@ void	add_to_write(t_user *user, char *msg)
 	}
 }
 
-void	send_to_chan(t_chan *chan, char *msg)
+void		send_to_chan(t_chan *chan, char *msg)
 {
-	t_user	*bwsus;
+	t_user		*bwsus;
 
 	bwsus = chan->user_first;
 	while (bwsus)
 	{
 		add_to_write(bwsus, msg);
-		bwsus = bwsus->next;
+		bwsus = bwsus->next_chan;
 	}
 }
