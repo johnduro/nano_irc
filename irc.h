@@ -111,6 +111,7 @@ char					*make_msg(t_user *user, char *msg, int flag);
 int						send_msg(char **arg, t_user *user, t_irc *irc);
 int						get_cmd(char **arg, t_user *user, t_irc *irc);
 int						get_chan(char **arg, t_user *user, t_irc *irc);
+int						quit_serv(char **arg, t_user *user, t_irc *irc);
 void					send_chan(t_user *user, t_chan *chan);
 
 #endif

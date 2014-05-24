@@ -14,7 +14,9 @@ NAME_Serv = serveur
 
 NAME_Client = client
 
-SRC_S = serveur.c
+SRC_S = ft_serveur.c loop_serveur.c accept_serveur.c read_serveur.c \
+		remove_serveur.c nick_serveur.c write_serveur.c chan_serveur.c \
+		who_serveur.c msg_serveur.c get_chan_cmd.c #serveur.c
 
 SRC_C = client.c
 
