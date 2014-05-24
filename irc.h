@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 14:06:58 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:32:22 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/24 19:48:33 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@
 # define L_CHAN "IRC: your are not in a chan\n"
 # define NO_MSG "IRC: wrong message format: /msg <nick> <msg>\n"
 # define NO_USER "IRC: could not find user\n"
-# define CMD "[/nick <name>][/join <chan>][/leave][/who][/msg <nick> <msg>]"
-# define CMD2 "[/cmd][/chan][/quit]\n"
+# define CMD "IRC: [/nick <name>][/join <chan>][/leave][/who]"
+# define CMD2 "[/msg <nick> <msg>][/cmd][/chan][/quit]\n"
 
 typedef struct s_chan	t_chan;
 
@@ -68,12 +68,22 @@ typedef struct			s_irc
 	fd_set				fd_write;
 }						t_irc;
 
-typedef int(*fn_ptr)(char **, t_user *, t_irc *);
+typedef struct			s_client
+{
+	int					sock;
+	char				buf_read[BUF_SIZE + 1];
+	char				buf_send[BUF_SIZE + 1];
+	char				buf_write[BUF_SIZE + 1];
+	fd_set				fd_read;
+	fd_set				fd_write;
+}						t_client;
+
+typedef int		(*t_fn_ptr)(char **, t_user *, t_irc *);
 
 typedef struct			s_cmd
 {
 	char				*name;
-	fn_ptr				fn;
+	t_fn_ptr			fn;
 }						t_cmd;
 
 int						error_serv(int code);

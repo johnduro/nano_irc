@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/24 17:07:02 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:20:02 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/24 18:47:26 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,8 @@ int			join_chan(char **arg, t_user *user, t_irc *irc)
 	t_chan		*chan;
 
 	arg++;
+	if (check_nick(user))
+		return (0);
 	if (!(*arg))
 		add_to_write(user, C_EMPTY);
 	else if (ft_strlen(*arg) > CHAN_LEN)

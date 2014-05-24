@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/24 17:15:43 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:22:54 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/24 18:41:58 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,16 @@ char		*make_msg(t_user *user, char *msg, int flag)
 {
 	char	*tmp;
 
-	tmp = ft_strnew(ft_strlen(user->nick) + 11 + ft_strlen(msg));
+	tmp = ft_strnew(ft_strlen(user->nick) + 11 + ft_strlen(msg) + 20);
+	if (flag == PRIVATE)
+		ft_strcat(tmp, "\033[1;34m[ ");
+	else
+		ft_strcat(tmp, "\033[1;31m[ ");
 	ft_strcat(tmp, user->nick);
 	if (flag == PRIVATE)
-		ft_strcat(tmp, "(private): ");
+		ft_strcat(tmp, " ](private): \033[0m");
 	else
-		ft_strcat(tmp, ": ");
+		ft_strcat(tmp, " ]: \033[0m");
 	ft_strcat(tmp, msg);
 	return (tmp);
 }
