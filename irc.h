@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/21 14:06:58 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 19:48:33 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/25 17:47:57 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ typedef struct			s_client
 	int					sock;
 	char				buf_read[BUF_SIZE + 1];
 	char				buf_send[BUF_SIZE + 1];
-	char				buf_write[BUF_SIZE + 1];
 	fd_set				fd_read;
 	fd_set				fd_write;
 }						t_client;
@@ -85,6 +84,10 @@ typedef struct			s_cmd
 	char				*name;
 	t_fn_ptr			fn;
 }						t_cmd;
+
+/*
+** SERVEUR
+*/
 
 int						error_serv(int code);
 t_irc					*init_irc(int port);
@@ -121,5 +124,15 @@ int						get_chan(char **arg, t_user *user, t_irc *irc);
 int						quit_serv(char **arg, t_user *user, t_irc *irc);
 void					send_chan(t_user *user, t_chan *chan);
 int						check_nick(t_user *user);
+
+/*
+** CLIENT
+*/
+
+int						make_client(int sock);
+int						client_error(int code);
+void					recv_in_client(t_client *client);
+void					read_in_client(t_client *client);
+void					send_in_client(t_client *client);
 
 #endif

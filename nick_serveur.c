@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/24 17:24:05 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:31:59 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/25 17:28:16 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,17 @@ int			nick_is_valid(char *nick, t_irc *irc)
 
 int			set_nick(char **arg, t_user *user, t_irc *irc)
 {
-	char	*trim;
-
 	arg++;
 	if (!(*arg))
 	{
 		add_to_write(user, N_ERROR);
 		return (0);
 	}
-	trim = ft_strtrim(*arg); //plus besoin ?
-	if (ft_strlen(trim) > NICK_LEN)
+	if (ft_strlen(*arg) > NICK_LEN)
 		add_to_write(user, N_LEN);
-	else if (nick_is_valid(trim, irc))
-		ft_strcpy(user->nick, trim);
+	else if (nick_is_valid(*arg, irc))
+		ft_strcpy(user->nick, *arg);
 	else
 		add_to_write(user, N_VALID);
-	free(trim);
 	return (0);
 }

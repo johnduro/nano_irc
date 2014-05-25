@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/24 17:26:32 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:26:57 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/25 15:44:42 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void		send_who(t_user *user, t_chan *chan)
 	char	*ret;
 
 	bwsus = chan->user_first;
-	ret = ft_strdup("User in chan:");
+	ret = ft_strdup("IRC: user in chan:");
 	while (bwsus)
 	{
 		tmp = ft_strjoinwsep(ret, bwsus->nick, ' ');

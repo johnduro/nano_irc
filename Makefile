@@ -6,7 +6,7 @@
 #    By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2014/05/16 15:00:18 by mle-roy           #+#    #+#              #
-#    Updated: 2014/05/21 14:11:38 by mle-roy          ###   ########.fr        #
+#    Updated: 2014/05/25 17:37:40 by mle-roy          ###   ########.fr        #
 #                                                                              #
 #******************************************************************************#
 
@@ -16,9 +16,9 @@ NAME_Client = client
 
 SRC_S = ft_serveur.c loop_serveur.c accept_serveur.c read_serveur.c \
 		remove_serveur.c nick_serveur.c write_serveur.c chan_serveur.c \
-		who_serveur.c msg_serveur.c get_chan_cmd.c #serveur.c
+		who_serveur.c msg_serveur.c get_chan_cmd.c
 
-SRC_C = client.c
+SRC_C = client.c loop_client.c treat_client.c
 
 OBJ_S = $(SRC_S:.c=.o)
 

@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/24 17:21:22 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:22:01 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/25 15:48:34 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ void		send_chan(t_user *user, t_chan *chan)
 	char	*ret;
 
 	bwschan = chan;
-	ret = ft_strdup("Chan on server:");
+	ret = ft_strdup("IRC: chan on server:");
 	while (bwschan)
 	{
 		tmp = ft_strjoinwsep(ret, bwschan->name, ' ');
@@ -41,7 +41,7 @@ void		send_chan(t_user *user, t_chan *chan)
 		ret = tmp;
 		if (bwschan == user->chan)
 		{
-			tmp = ft_strjoin(ret, "(*)");
+			tmp = ft_strjoin(ret, "*");
 			free(ret);
 			ret = tmp;
 		}

@@ -6,7 +6,7 @@
 /*   By: mle-roy <mle-roy@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2014/05/24 17:25:22 by mle-roy           #+#    #+#             */
-/*   Updated: 2014/05/24 17:26:23 by mle-roy          ###   ########.fr       */
+/*   Updated: 2014/05/25 17:28:27 by mle-roy          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,8 +84,8 @@ void		remove_user(t_user *user, t_irc *irc)
 		user->next->prev = user->prev;
 	}
 	close(user->fd);
-	free(user); //mettre a NULL apres ?
-	user = NULL; //test
+	free(user);
+	user = NULL;
 }
 
 int			quit_serv(char **arg, t_user *user, t_irc *irc)
